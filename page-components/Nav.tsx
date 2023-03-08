@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useRouter } from "next/router";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
@@ -20,6 +20,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import Drawer from "@mui/material/Drawer";
 
 export default function Nav() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   // TODO: fix any!
@@ -38,14 +39,17 @@ export default function Nav() {
     {
       text: "Home",
       icon: <HomeIcon />,
+      link: "/",
     },
     {
       text: "Add patient",
       icon: <AddBoxIcon />,
+      link: "/patients/new",
     },
     {
       text: "Current patients",
       icon: <PeopleIcon />,
+      link: "/patients/",
     },
   ];
 
@@ -80,7 +84,7 @@ export default function Nav() {
           <List>
             {menuItems.map((item, index) => (
               <ListItem key={item.text} disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={() => router.push(item.link)}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItemButton>
