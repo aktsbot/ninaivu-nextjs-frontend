@@ -20,7 +20,19 @@ export default function Patients() {
       uuid: "1235",
       name: "Kurudi",
       mobileNumber: "+918345678982",
-      diagnosis: "Trauma related disorders",
+      diagnosis: "Somatic symptom disorder",
+    },
+    {
+      uuid: "1236",
+      name: "Geethu",
+      mobileNumber: "+91865437890982",
+      diagnosis: "Insomnia",
+    },
+    {
+      uuid: "1237",
+      name: "Chaver Vavachan",
+      mobileNumber: "+917867909876",
+      diagnosis: "PTSD",
     },
   ];
 
@@ -45,15 +57,17 @@ export default function Patients() {
       <Grid
         container
         mt={2}
-        rowSpacing={1}
+        rowSpacing={2}
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       >
         {patients.map((p) => (
-          <Grid item xs={6} key={p.uuid}>
+          <Grid item key={p.uuid}>
             <PatientCard patient={p} />
           </Grid>
         ))}
       </Grid>
+
+      <Box mb={4} />
     </Layout>
   );
 }

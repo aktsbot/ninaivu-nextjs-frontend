@@ -5,7 +5,6 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import PersonIcon from "@mui/icons-material/Person";
 
 import { IPatient } from "@/types/Patient";
 
@@ -15,7 +14,6 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <PersonIcon />
         <Typography variant="h5" component="div">
           {patient.name}
         </Typography>
