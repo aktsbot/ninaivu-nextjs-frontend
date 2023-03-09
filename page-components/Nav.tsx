@@ -42,14 +42,14 @@ export default function Nav() {
       link: "/",
     },
     {
-      text: "Add patient",
-      icon: <AddBoxIcon />,
-      link: "/patients/new",
-    },
-    {
       text: "Current patients",
       icon: <PeopleIcon />,
       link: "/patients/",
+    },
+    {
+      text: "Add patient",
+      icon: <AddBoxIcon />,
+      link: "/patients/new",
     },
   ];
 
