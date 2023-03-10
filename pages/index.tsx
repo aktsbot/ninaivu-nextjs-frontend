@@ -6,8 +6,7 @@ import Layout from "@/page-components/Layout";
 export default function Home() {
   return (
     <Layout title="Home">
-      <Typography variant="h1">Hey there</Typography>
-      <Button variant="contained">Hello World</Button>
+      <Typography variant="h3">👈 Check out that nav!</Typography>
     </Layout>
   );
 }

@@ -15,6 +15,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PeopleIcon from "@mui/icons-material/People";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import MessageIcon from "@mui/icons-material/Message";
 
@@ -56,6 +57,11 @@ export default function Nav() {
       text: "Messages",
       icon: <MessageIcon />,
       link: "/messages",
+    },
+    {
+      text: "Add message",
+      icon: <AddCircleIcon />,
+      link: "/messages/new",
     },
   ];
 
