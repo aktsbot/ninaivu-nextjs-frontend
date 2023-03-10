@@ -16,6 +16,7 @@ import ListItemText from "@mui/material/ListItemText";
 import PeopleIcon from "@mui/icons-material/People";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import HomeIcon from "@mui/icons-material/Home";
+import MessageIcon from "@mui/icons-material/Message";
 
 import Drawer from "@mui/material/Drawer";
 
@@ -50,6 +51,11 @@ export default function Nav() {
       text: "Add patient",
       icon: <AddBoxIcon />,
       link: "/patients/new",
+    },
+    {
+      text: "Messages",
+      icon: <MessageIcon />,
+      link: "/messages",
     },
   ];
 
