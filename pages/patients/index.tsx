@@ -40,9 +40,11 @@ export default function Patients() {
     <Layout title="Patients">
       <Typography variant="h4" component="h1" mt={2}>
         Current patients
-        <Badge badgeContent={patients.length} color="info">
-          <PeopleIcon color="action" />
-        </Badge>
+        <Box component="span" ml={1}>
+          <Badge badgeContent={patients.length} color="info">
+            <PeopleIcon color="action" />
+          </Badge>
+        </Box>
       </Typography>
 
       <Box component="form" noValidate autoComplete="off">
@@ -54,12 +56,7 @@ export default function Patients() {
         />
       </Box>
 
-      <Grid
-        container
-        mt={2}
-        rowSpacing={2}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      >
+      <Grid container mt={2} spacing={1}>
         {patients.map((p) => (
           <Grid item key={p.uuid}>
             <PatientCard patient={p} />

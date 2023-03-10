@@ -8,7 +8,13 @@ import Typography from "@mui/material/Typography";
 
 import { IPatient } from "@/types/Patient";
 
-export default function PatientCard({ patient }: { patient: IPatient }) {
+export default function PatientCard({
+  patient,
+  skipActions,
+}: {
+  patient: IPatient;
+  skipActions?: boolean;
+}) {
   const router = useRouter();
 
   return (
@@ -22,14 +28,16 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
         </Typography>
         <Typography variant="body2">{patient.diagnosis}</Typography>
       </CardContent>
-      <CardActions>
-        <Button
-          size="small"
-          onClick={() => router.push(`/patients/${patient.uuid}`)}
-        >
-          View details
-        </Button>
-      </CardActions>
+      {!skipActions && (
+        <CardActions>
+          <Button
+            size="small"
+            onClick={() => router.push(`/patients/${patient.uuid}`)}
+          >
+            View details
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 }
