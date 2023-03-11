@@ -21,8 +21,9 @@ export default function PatientCard({
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography variant="h5" component="div">
-          {patient.name}
+          ID {patient.patientId}
         </Typography>
+        <Typography variant="body2">{patient.name}</Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {patient.mobileNumber}
         </Typography>
