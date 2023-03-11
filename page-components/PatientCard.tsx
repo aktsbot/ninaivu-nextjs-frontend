@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -20,9 +22,9 @@ export default function PatientCard({
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Typography variant="h5" component="div">
-          ID {patient.patientId}
-        </Typography>
+        <Box mb={2}>
+          <Chip label={patient.patientId} variant="outlined" />
+        </Box>
         <Typography variant="body2">{patient.name}</Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {patient.mobileNumber}
