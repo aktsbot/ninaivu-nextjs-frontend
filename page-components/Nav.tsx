@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+
+import { useSession, signIn, signOut } from 'next-auth/react';
+
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
@@ -22,6 +25,12 @@ import MessageIcon from "@mui/icons-material/Message";
 import Drawer from "@mui/material/Drawer";
 
 export default function Nav() {
+
+  const { data: session } = useSession()
+
+
+  console.log('session ', session)
+
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -82,7 +91,9 @@ export default function Nav() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Ninaivu
           </Typography>
-          <Button color="inherit">Logout</Button>
+          {
+            session ? <Button color="inherit" onClick={() => signOut()}>Logout</Button> : <Button color="inherit" onClick={() => signIn()}>Login</Button>
+          }
         </Toolbar>
       </AppBar>
 
@@ -94,7 +105,7 @@ export default function Nav() {
           onKeyDown={toggleDrawer(false)}
         >
           <List>
-            {menuItems.map((item, index) => (
+            {menuItems.map((item) => (
               <ListItem key={item.text} disablePadding>
                 <ListItemButton onClick={() => router.push(item.link)}>
                   <ListItemIcon>{item.icon}</ListItemIcon>

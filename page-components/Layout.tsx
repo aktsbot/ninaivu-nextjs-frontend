@@ -14,6 +14,7 @@ export default function Layout({
   children: React.ReactNode;
   title?: string;
 }) {
+  const pageTitle = `${title} | ninaivu`;
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = useMemo(
@@ -29,7 +30,7 @@ export default function Layout({
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        <title>{title} | ninaivu</title>
+        <title>{pageTitle}</title>
         <meta property="og:title" content={title} key="title" />
       </Head>
 
