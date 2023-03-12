@@ -24,6 +24,8 @@ import MessageIcon from "@mui/icons-material/Message";
 
 import Drawer from "@mui/material/Drawer";
 
+import ProfileMenu from './ProfileMenu'
+
 export default function Nav() {
 
   const { data: session } = useSession()
@@ -92,7 +94,7 @@ export default function Nav() {
             Ninaivu
           </Typography>
           {
-            session ? <Button color="inherit" onClick={() => signOut()}>Logout</Button> : <Button color="inherit" onClick={() => signIn()}>Login</Button>
+            session ? <ProfileMenu session={session} onLogout={() => signOut()} /> : <Button color="inherit" onClick={() => signIn()}>Login</Button>
           }
         </Toolbar>
       </AppBar>
