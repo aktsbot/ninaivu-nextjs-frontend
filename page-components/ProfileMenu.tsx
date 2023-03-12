@@ -27,8 +27,10 @@ export default function ProfileMenu({ session, onLogout }: { session: Session, o
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <Avatar alt={session.user?.name} src={session.user?.image} sx={{ width: 24, height: 24 }} />
-        <Typography component="span" pl={1} style={{ textTransform: 'none' }}>{session.user?.name}</Typography>
+        <>
+          <Avatar alt={session.user?.name!} src={session.user?.image!} sx={{ width: 24, height: 24 }} />
+          <Typography component="span" pl={1} style={{ textTransform: 'none' }}>{session.user?.name}</Typography>
+        </>
       </Button>
       <Menu
         id="profile-menu"
