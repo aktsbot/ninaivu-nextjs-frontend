@@ -30,9 +30,6 @@ export default function Nav() {
 
   const { data: session } = useSession()
 
-
-  console.log('session ', session)
-
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -53,28 +50,41 @@ export default function Nav() {
       text: "Home",
       icon: <HomeIcon />,
       link: "/",
+      auth: false,
     },
     {
       text: "Current patients",
       icon: <PeopleIcon />,
       link: "/patients/",
+      auth: true,
     },
     {
       text: "Add patient",
       icon: <AddBoxIcon />,
       link: "/patients/new",
+      auth: true,
     },
     {
       text: "Messages",
       icon: <MessageIcon />,
       link: "/messages",
+      auth: true
     },
     {
       text: "Add message",
       icon: <AddCircleIcon />,
       link: "/messages/new",
+      auth: true,
     },
   ];
+
+  const menuItemsToShow = menuItems.filter(mi => {
+    if (session) {
+      return mi
+    } else {
+      return !mi.auth
+    }
+  })
 
   return (
     <>
@@ -107,7 +117,7 @@ export default function Nav() {
           onKeyDown={toggleDrawer(false)}
         >
           <List>
-            {menuItems.map((item) => (
+            {menuItemsToShow.map((item) => (
               <ListItem key={item.text} disablePadding>
                 <ListItemButton onClick={() => router.push(item.link)}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
