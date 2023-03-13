@@ -1,8 +1,9 @@
-export const isEmailInAllowedList = ({ email }: { email: string }) => {
-  if (!process.env.ALLOWED_EMAILS) {
-    return false; // allow no one to use the platform unless this is set  
-  }
-  const allowedList = process.env.ALLOWED_EMAILS.split(',')
-  return allowedList.includes(email);
+import dbConnect from "./lib/dbConnect";
+import User from './models/User'
+
+export const getUserFromDb = async ({ email }: { email: string }) => {
+  await dbConnect()
+  const user = await User.findOne({ email, status: 'active' })
+  return user;
 }
 

@@ -7,4 +7,9 @@ declare module "next-auth" {
   interface Profile {
     email_verified: boolean
   }
+
+  // TODO: fix this
+  interface User {
+    dbUser: any
+  }
 }
