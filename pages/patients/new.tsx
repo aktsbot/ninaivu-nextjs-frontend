@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -10,6 +12,25 @@ import TextField from "@mui/material/TextField";
 import Layout from "@/page-components/Layout";
 
 export default function NewPatient() {
+
+  const [patient, setPatient] = useState({
+    patientId: '',
+    name: '',
+    mobileNumbers: [''],
+    notes: '',
+    messagesEvery: ['sunday']
+  })
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const target = e.target;
+    const name = target.name;
+
+    setPatient((prev) => ({
+      ...prev,
+      [name]: target.value
+    }))
+  }
+
   return (
     <Layout title="Add a patient">
       <Typography variant="h4" component="h1" mt={2}>
@@ -18,11 +39,25 @@ export default function NewPatient() {
 
       <Box component="form" noValidate autoComplete="off" mt={2}>
         <TextField
+          id="patient-id"
+          name="patientId"
+          label="Patient id"
+          fullWidth
+          margin="dense"
+          onChange={handleChange}
+          value={patient.patientId}
+        />
+
+        <TextField
           id="patient-name"
           label="Patient name"
           fullWidth
           margin="dense"
+          name="name"
+          onChange={handleChange}
+          value={patient.name}
         />
+
         <TextField
           id="patient-diagnosis"
           label="Diagnosis"
@@ -44,7 +79,7 @@ export default function NewPatient() {
             id="patient-message-frequency"
             value={10}
             label="Message frequency"
-            onChange={() => {}}
+            onChange={() => { }}
           >
             <MenuItem value={10}>Every Sunday</MenuItem>
             <MenuItem value={20}>Every Monday</MenuItem>
