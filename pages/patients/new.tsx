@@ -7,7 +7,12 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 
 import Layout from "@/page-components/Layout";
 
@@ -25,9 +30,41 @@ export default function NewPatient() {
     const target = e.target;
     const name = target.name;
 
+    if (name === 'mobileNumbers') {
+      const id = target.id;
+      const idSplits = id.split('---')
+      if (idSplits.length === 2) {
+        const idx = Number(idSplits[1]);
+        let updatedMobileNumbers = [...patient.mobileNumbers];
+        updatedMobileNumbers[idx] = target.value;
+        setPatient(prev => ({
+          ...prev,
+          mobileNumbers: updatedMobileNumbers
+        }))
+      }
+      return;
+    }
+
     setPatient((prev) => ({
       ...prev,
       [name]: target.value
+    }))
+  }
+
+  function handleNewNumberClick() {
+    let updatedMobileNumbers = [...patient.mobileNumbers, ''];
+    setPatient(prev => ({
+      ...prev,
+      mobileNumbers: updatedMobileNumbers
+    }))
+  }
+
+  function handleDeleteNumberClick(index: number) {
+    let mobileNumbers = [...patient.mobileNumbers]
+    mobileNumbers.splice(index, 1);
+    setPatient(prev => ({
+      ...prev,
+      mobileNumbers: mobileNumbers
     }))
   }
 
@@ -58,18 +95,32 @@ export default function NewPatient() {
           value={patient.name}
         />
 
-        <TextField
-          id="patient-diagnosis"
-          label="Diagnosis"
-          fullWidth
-          margin="dense"
-        />
-        <TextField
-          id="patient-mobile-number"
-          label="Mobile number"
-          fullWidth
-          margin="dense"
-        />
+        {
+          patient.mobileNumbers.map((mn, index) => <Stack direction="row" alignItems="center" gap={1} key={index}>
+            <TextField
+              id={`patient-mobile-number---${index}`}
+              label="Mobile number"
+              margin="dense"
+              value={mn}
+              name="mobileNumbers"
+              onChange={handleChange}
+            />
+            {index != 0 &&
+              <IconButton aria-label="delete" onClick={() => handleDeleteNumberClick(index)}>
+                <DeleteIcon />
+              </IconButton>
+            }
+          </Stack>)
+        }
+
+        {patient.mobileNumbers.length < 3 &&
+
+          <Box mt={1} mb={1}>
+            <Button size="small" variant="outlined" onClick={handleNewNumberClick} startIcon={<ContactPhoneIcon />}>Another number</Button>
+          </Box>
+        }
+
+
         <FormControl fullWidth margin="dense">
           <InputLabel id="patient-message-frequency-label">
             Message frequency
