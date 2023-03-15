@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -34,6 +34,25 @@ export default function NewPatient() {
     notes: "",
     messagesEvery: ["sunday"],
   });
+
+  const isFormGood = useMemo(() => {
+    if (
+      patient.patientId &&
+      patient.name &&
+      patient.mobileNumbers.filter((mn) => mn !== "").length &&
+      patient.messagesEvery.length
+    ) {
+      return true;
+    }
+
+    return false;
+  }, [
+    patient.patientId,
+    patient.name,
+    patient.mobileNumbers,
+    patient.messagesEvery,
+    patient.notes,
+  ]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
@@ -96,13 +115,24 @@ export default function NewPatient() {
     }));
   }
 
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    console.log(patient);
+  }
+
   return (
     <Layout title="Add a patient">
       <Typography variant="h4" component="h1" mt={2}>
         Add a patient
       </Typography>
 
-      <Box component="form" noValidate autoComplete="off" mt={2}>
+      <Box
+        component="form"
+        noValidate
+        autoComplete="off"
+        mt={2}
+        onSubmit={handleSubmit}
+      >
         <TextField
           id="patient-id"
           name="patientId"
@@ -111,6 +141,7 @@ export default function NewPatient() {
           margin="dense"
           onChange={handleChange}
           value={patient.patientId}
+          required
         />
 
         <TextField
@@ -121,6 +152,7 @@ export default function NewPatient() {
           name="name"
           onChange={handleChange}
           value={patient.name}
+          required
         />
 
         {patient.mobileNumbers.map((mn, index) => (
@@ -132,6 +164,7 @@ export default function NewPatient() {
               value={mn}
               name="mobileNumbers"
               onChange={handleChange}
+              required
             />
             {index != 0 && (
               <IconButton
@@ -176,8 +209,22 @@ export default function NewPatient() {
           ))}
         </FormGroup>
 
+        <TextField
+          id="patient-notes"
+          name="notes"
+          margin="dense"
+          label="Notes"
+          placeholder="Extra notes about this patient"
+          multiline
+          rows={4}
+          fullWidth
+          onChange={handleChange}
+        />
+
         <Box mt={2}>
-          <Button variant="contained">Create patient</Button>
+          <Button variant="contained" type="submit" disabled={!isFormGood}>
+            Create patient
+          </Button>
         </Box>
       </Box>
     </Layout>
