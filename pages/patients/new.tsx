@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useRouter } from "next/router";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -29,6 +30,8 @@ const messageFrequencies = [
 ];
 
 export default function NewPatient() {
+  const router = useRouter();
+
   const [patient, setPatient] = useState({
     patientId: "",
     name: "",
@@ -142,9 +145,36 @@ export default function NewPatient() {
     }));
   }
 
+  const postData = async () => {
+    try {
+      const res = await fetch("/api/patients", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(patient),
+      });
+
+      // Throw error with status code in case Fetch API req failed
+      if (!res.ok) {
+        throw new Error(res.status.toString());
+      }
+
+      router.push("/");
+    } catch (error) {
+      setStatus({
+        message: "Failed to add patient",
+        type: "error",
+        open: true,
+      });
+    }
+  };
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     console.log(patient);
+    postData();
   }
 
   return (
