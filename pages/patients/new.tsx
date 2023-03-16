@@ -15,6 +15,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 
 import Layout from "@/page-components/Layout";
+import Toast from "@/page-components/Toast";
+import { AlertColor } from "@mui/material";
 
 const messageFrequencies = [
   { code: "sunday", text: "Sunday" },
@@ -35,6 +37,16 @@ export default function NewPatient() {
     messagesEvery: ["sunday"],
   });
 
+  const [status, setStatus] = useState<{
+    type: AlertColor;
+    message: string;
+    open: boolean;
+  }>({
+    type: "error",
+    message: "",
+    open: false,
+  });
+
   const isFormGood = useMemo(() => {
     if (
       patient.patientId &&
@@ -53,6 +65,21 @@ export default function NewPatient() {
     patient.messagesEvery,
     patient.notes,
   ]);
+
+  const handleClose = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setStatus({
+      type: "error",
+      message: "",
+      open: false,
+    });
+  };
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
@@ -227,6 +254,13 @@ export default function NewPatient() {
           </Button>
         </Box>
       </Box>
+
+      <Toast
+        open={status.open}
+        message={status.message}
+        type={status.type}
+        handleClose={handleClose}
+      />
     </Layout>
   );
 }
