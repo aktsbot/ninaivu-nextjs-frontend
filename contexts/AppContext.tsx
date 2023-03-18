@@ -1,7 +1,7 @@
 import { useState, createContext, FC, ReactNode } from "react";
 
 import { AlertColor } from "@mui/material";
-import { makeAlertObj } from "@/utils";
+import { makeAlertObj } from "@/lib/pageUtils";
 
 interface IAlertNoId {
   type: AlertColor;

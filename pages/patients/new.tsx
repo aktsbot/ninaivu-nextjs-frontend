@@ -137,6 +137,10 @@ export default function NewPatient() {
         throw new Error(res.status.toString());
       }
 
+      addAlert({
+        message: "Patient has been added",
+        type: "success",
+      });
       router.push("/");
     } catch (error) {
       addAlert({
