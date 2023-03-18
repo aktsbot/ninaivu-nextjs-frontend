@@ -1,9 +1,11 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 
-import { Session } from 'next-auth'
-import { SessionProvider } from 'next-auth/react'
+import { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 import { Roboto } from "next/font/google";
+
+import AppContextProvider from "@/contexts/AppContext";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -11,7 +13,10 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) {
   return (
     <SessionProvider session={session}>
       <style jsx global>{`
@@ -19,8 +24,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
           font-family: ${roboto.style.fontFamily};
         }
       `}</style>
-
-      <Component {...pageProps} />
+      <AppContextProvider>
+        <Component {...pageProps} />
+      </AppContextProvider>
     </SessionProvider>
   );
 }
