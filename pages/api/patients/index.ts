@@ -16,7 +16,8 @@ export default async function handler(
     return;
   }
 
-  console.log("session in handler ", session);
+  // console.log("session in handler ", session);
+  const loggedInUser = session.user;
 
   const { method } = req;
 
@@ -35,9 +36,10 @@ export default async function handler(
       break;
     case "POST":
       try {
-        const patient = await Patient.create(
-          req.body
-        ); /* create a new model in the database */
+        const patient = await Patient.create({
+          ...req.body,
+          createdBy: loggedInUser.dbUserId,
+        }); /* create a new model in the database */
         res.status(201).json({ success: true, data: patient });
       } catch (error) {
         res.status(400).json({ success: false });

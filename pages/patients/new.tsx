@@ -141,7 +141,7 @@ export default function NewPatient() {
         message: "Patient has been added",
         type: "success",
       });
-      router.push("/");
+      router.push("/patients");
     } catch (error) {
       addAlert({
         message: "Failed to add patient",
