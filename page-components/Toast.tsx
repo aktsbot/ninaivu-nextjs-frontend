@@ -22,7 +22,12 @@ export default function Toast({
   message: string;
 }) {
   return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar
+      open={open}
+      autoHideDuration={6000}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+    >
       <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
         {message}{" "}
       </Alert>
