@@ -26,10 +26,34 @@ export default async function handler(
   switch (method) {
     case "GET":
       try {
+        let query = {
+          status: "active",
+        };
+        let page = 1;
+        if (req.query.page) {
+          page = parseInt(req.query.page as string);
+        }
+        if (req.query.page === "inactive") {
+          query.status = "inactive";
+        }
+        const limit = 20;
+        const skip = page * limit - limit;
+        const patientCount = await Patient.countDocuments({
+          ...query,
+        });
         const patients = await Patient.find(
-          {}
+          { ...query },
+          { uuid: 1, name: 1, patientId: 1, mobileNumbers: 1, createdAt: 1 },
+          {
+            skip,
+            limit,
+          }
         ); /* find all the data in our database */
-        res.status(200).json({ success: true, data: patients });
+        const totalPages = Math.ceil(patientCount / limit);
+        res.status(200).json({
+          success: true,
+          data: { records: patients, count: patientCount, page, totalPages },
+        });
       } catch (error) {
         res.status(400).json({ success: false });
       }
