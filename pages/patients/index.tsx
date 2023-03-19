@@ -11,37 +11,6 @@ import PatientListTable from "@/page-components/PatientListTable";
 import { IPatient } from "@/types/Patient";
 
 export default function Patients() {
-  const patients = [
-    {
-      uuid: "1234",
-      patientId: "1",
-      name: "Hari Lal",
-      mobileNumber: "+917890987678",
-      diagnosis: "Schizophrenia",
-    },
-    {
-      uuid: "1235",
-      patientId: "2",
-      name: "Kurudi",
-      mobileNumber: "+918345678982",
-      diagnosis: "Somatic symptom disorder",
-    },
-    {
-      uuid: "1236",
-      patientId: "3",
-      name: "Geethu",
-      mobileNumber: "+918789567898",
-      diagnosis: "Insomnia",
-    },
-    {
-      uuid: "1237",
-      patientId: "4",
-      name: "Chaver Vavachan",
-      mobileNumber: "+917867909876",
-      diagnosis: "PTSD",
-    },
-  ];
-
   const [allPatients, setAllPatients] = useState<IPatient[]>([]);
   const [pagination, setPagination] = useState({
     page: 1,
