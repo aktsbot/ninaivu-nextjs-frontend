@@ -43,7 +43,14 @@ export default async function handler(
         });
         const patients = await Patient.find(
           { ...query },
-          { uuid: 1, name: 1, patientId: 1, mobileNumbers: 1, createdAt: 1 },
+          {
+            uuid: 1,
+            name: 1,
+            patientId: 1,
+            notes: 1,
+            mobileNumbers: 1,
+            createdAt: 1,
+          },
           {
             skip,
             limit,

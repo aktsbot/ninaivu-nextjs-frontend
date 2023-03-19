@@ -23,8 +23,8 @@ export default function PatientCard({ patients }: { patients: IPatient[] }) {
             <TableRow>
               <TableCell>Patient Id</TableCell>
               <TableCell>Name</TableCell>
-              <TableCell>Mobile number</TableCell>
-              <TableCell>Diagnosis</TableCell>
+              <TableCell>Mobile numbers</TableCell>
+              <TableCell>Notes</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -38,8 +38,8 @@ export default function PatientCard({ patients }: { patients: IPatient[] }) {
                   {patient.patientId}
                 </TableCell>
                 <TableCell>{patient.name}</TableCell>
-                <TableCell>{patient.mobileNumber}</TableCell>
-                <TableCell>{patient.diagnosis}</TableCell>
+                <TableCell>{patient.mobileNumbers.join(", ")}</TableCell>
+                <TableCell>{patient.notes}</TableCell>
                 <TableCell>
                   <Button
                     size="small"
