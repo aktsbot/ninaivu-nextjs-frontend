@@ -20,6 +20,11 @@ export default function Patients() {
     totalPages: 1,
     count: 0,
   });
+  const [filters, setFilters] = useState({
+    name: "",
+    mobileNumber: "",
+    status: "active",
+  });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -75,20 +80,29 @@ export default function Patients() {
             id="search-patient-name"
             label="Patient name"
             variant="standard"
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, name: e.target.value }))
+            }
+            value={filters.name}
           />
           <TextField
             id="search-patient-mobile"
             label="Patient mobile number"
             variant="standard"
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, mobileNumber: e.target.value }))
+            }
+            value={filters.mobileNumber}
           />
           <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={[
-              { t: "active", label: "Active" },
-              { t: "inactive", label: "Inactive" },
-            ]}
+            options={["active", "inactive"]}
             sx={{ width: 300 }}
+            onChange={(_e, value) =>
+              setFilters((prev) => ({ ...prev, status: value! }))
+            }
+            value={filters.status}
             renderInput={(params) => (
               <TextField {...params} label="Status" variant="standard" />
             )}
