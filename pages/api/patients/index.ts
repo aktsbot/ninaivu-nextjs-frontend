@@ -50,7 +50,7 @@ export default async function handler(
           };
         }
 
-        console.log("query ", query);
+        // console.log("query ", query);
 
         const limit = 20;
         const skip = page * limit - limit;
