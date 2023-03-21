@@ -26,16 +26,32 @@ export default async function handler(
   switch (method) {
     case "GET":
       try {
-        let query = {
+        let query: {
+          [key: string]: any;
+        } = {
           status: "active",
         };
         let page = 1;
         if (req.query.page) {
           page = parseInt(req.query.page as string);
         }
-        if (req.query.page === "inactive") {
+        if (req.query.status === "inactive") {
           query.status = "inactive";
         }
+
+        if (req.query.name) {
+          query.name = { $regex: req.query.name, $options: "i" };
+        }
+
+        if (req.query.mobileNumber) {
+          query.mobileNumbers = {
+            $regex: req.query.mobileNumber,
+            $options: "i",
+          };
+        }
+
+        console.log("query ", query);
+
         const limit = 20;
         const skip = page * limit - limit;
         const patientCount = await Patient.countDocuments({
