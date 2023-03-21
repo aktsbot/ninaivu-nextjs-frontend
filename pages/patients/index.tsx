@@ -15,6 +15,7 @@ import { IPatient } from "@/types/Patient";
 
 export default function Patients() {
   const [allPatients, setAllPatients] = useState<IPatient[]>([]);
+  const [doSearch, setDoSearch] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     totalPages: 1,
@@ -33,6 +34,9 @@ export default function Patients() {
     async function getPatients() {
       const query = new URLSearchParams({
         page: pagination.page.toString(),
+        name: filters.name,
+        mobileNumber: filters.mobileNumber,
+        status: filters.status,
       });
       try {
         const res = await fetch("/api/patients?" + query, {
@@ -52,16 +56,40 @@ export default function Patients() {
         }));
       } catch (error) {
         console.log(error);
+      } finally {
+        setDoSearch(false);
       }
     }
-    if (pagination.page) {
+    if (pagination.page && doSearch) {
       getPatients();
 
       return () => {
         controller.abort();
       };
     }
-  }, [pagination.page]);
+  }, [
+    pagination.page,
+    doSearch,
+    filters.name,
+    filters.mobileNumber,
+    filters.status,
+  ]);
+
+  useEffect(() => {
+    setDoSearch(true);
+
+    return () => setDoSearch(false);
+  }, []);
+
+  const handleFilter = () => {
+    setAllPatients([]);
+    setPagination({
+      page: 1,
+      totalPages: 1,
+      count: 0,
+    });
+    setDoSearch(true);
+  };
 
   return (
     <Layout title="Patients">
@@ -107,7 +135,9 @@ export default function Patients() {
               <TextField {...params} label="Status" variant="standard" />
             )}
           />
-          <Button variant="contained">Filter</Button>
+          <Button variant="contained" onClick={handleFilter}>
+            Filter
+          </Button>
         </Stack>
       </Box>
 
