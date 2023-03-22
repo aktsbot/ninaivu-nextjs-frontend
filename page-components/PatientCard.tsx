@@ -27,9 +27,9 @@ export default function PatientCard({
         </Box>
         <Typography variant="body2">{patient.name}</Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {patient.mobileNumber}
+          {patient.mobileNumbers.join(",")}
         </Typography>
-        <Typography variant="body2">{patient.diagnosis}</Typography>
+        <Typography variant="body2">{patient.notes}</Typography>
       </CardContent>
       {!skipActions && (
         <CardActions>
