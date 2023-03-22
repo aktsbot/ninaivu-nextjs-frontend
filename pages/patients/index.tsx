@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Badge from "@mui/material/Badge";
 import TextField from "@mui/material/TextField";
+import Pagination from "@mui/material/Pagination";
 import Autocomplete from "@mui/material/Autocomplete";
 import PeopleIcon from "@mui/icons-material/People";
 
@@ -20,6 +21,8 @@ export default function Patients() {
     page: 1,
     totalPages: 1,
     count: 0,
+    allCount: 0,
+    limit: 0,
   });
   const [filters, setFilters] = useState({
     name: "",
@@ -53,6 +56,8 @@ export default function Patients() {
           ...prev,
           totalPages: res.data.totalPages,
           count: res.data.count,
+          allCount: res.data.allCount,
+          limit: res.data.limit,
         }));
       } catch (error) {
         console.log(error);
@@ -87,7 +92,18 @@ export default function Patients() {
       page: 1,
       totalPages: 1,
       count: 0,
+      allCount: 0,
+      limit: 0,
     });
+    setDoSearch(true);
+  };
+
+  const handlePagination = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setAllPatients([]);
+    setPagination((prev) => ({ ...prev, page: value }));
     setDoSearch(true);
   };
 
@@ -96,7 +112,7 @@ export default function Patients() {
       <Typography variant="h4" component="h1" mt={2}>
         Current patients
         <Box component="span" ml={1}>
-          <Badge badgeContent={pagination.count} color="info">
+          <Badge badgeContent={pagination.allCount} color="info">
             <PeopleIcon color="action" />
           </Badge>
         </Box>
@@ -142,6 +158,18 @@ export default function Patients() {
       </Box>
 
       <Box mt={4}>
+        <Box mb={2} display="flex" justifyContent="center" alignItems="center">
+          <Stack>
+            <Typography component="p">
+              Matched {pagination.count} patients{" "}
+            </Typography>
+            <Pagination
+              count={pagination.totalPages}
+              page={pagination.page}
+              onChange={handlePagination}
+            />
+          </Stack>
+        </Box>
         <PatientListTable patients={allPatients} />
       </Box>
 

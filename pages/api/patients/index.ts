@@ -54,9 +54,14 @@ export default async function handler(
 
         const limit = 20;
         const skip = page * limit - limit;
-        const patientCount = await Patient.countDocuments({
-          ...query,
-        });
+        const [patientCount, allPatientCount] = await Promise.all([
+          Patient.countDocuments({
+            ...query,
+          }),
+          Patient.countDocuments({
+            status: "active",
+          }),
+        ]);
         const patients = await Patient.find(
           { ...query },
           {
@@ -75,7 +80,14 @@ export default async function handler(
         const totalPages = Math.ceil(patientCount / limit);
         res.status(200).json({
           success: true,
-          data: { records: patients, count: patientCount, page, totalPages },
+          data: {
+            records: patients,
+            count: patientCount,
+            page,
+            totalPages,
+            allCount: allPatientCount,
+            limit,
+          },
         });
       } catch (error) {
         res.status(400).json({ success: false });
