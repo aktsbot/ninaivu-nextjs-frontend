@@ -50,8 +50,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         uuid: "1234",
         patientId: "1",
         name: "Hari Lal",
-        mobileNumber: "+917890987678",
-        diagnosis: "Schizophrenia",
+        mobileNumbers: ["+917890987678"],
+        notes: "Schizophrenia",
       },
       messageReport: [
         {
