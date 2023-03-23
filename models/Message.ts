@@ -16,6 +16,7 @@ const MessageSchema = new mongoose.Schema(
       type: String,
       default: "active",
     },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,
