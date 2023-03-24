@@ -45,7 +45,7 @@ export default function NewMessage() {
       }
 
       addAlert({
-        message: "Message ha been added",
+        message: "Message has been added",
         type: "success",
       });
       router.push("/messages");
