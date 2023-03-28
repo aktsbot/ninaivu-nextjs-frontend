@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import { IPatient } from "@/types/Patient";
+import { capitalize } from "@mui/material";
 
 export default function PatientCard({
   patient,
@@ -27,9 +28,16 @@ export default function PatientCard({
         </Box>
         <Typography variant="body2">{patient.name}</Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {patient.mobileNumbers.join(",")}
+          {patient.mobileNumbers.join(", ")}
         </Typography>
-        <Typography variant="body2">{patient.notes}</Typography>
+        <Typography variant="body2" mt={1}>
+          Messages every{" "}
+          {patient.messagesEvery.map((d) => capitalize(d)).join(", ")}
+        </Typography>
+
+        <Typography variant="body2" mt={1} color="text.secondary">
+          {patient.notes}
+        </Typography>
       </CardContent>
       {!skipActions && (
         <CardActions>

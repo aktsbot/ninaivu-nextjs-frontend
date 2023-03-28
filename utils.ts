@@ -6,3 +6,7 @@ export const getUserFromDb = async ({ email }: { email: string }) => {
   const user = await User.findOne({ email, status: "active" });
   return user;
 };
+
+export const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};

@@ -4,4 +4,5 @@ export interface IPatient {
   name: string;
   mobileNumbers: string[];
   notes: string;
+  messagesEvery: string[];
 }
