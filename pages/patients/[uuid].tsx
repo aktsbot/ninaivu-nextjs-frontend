@@ -10,6 +10,8 @@ import PatientMessageReport from "@/page-components/PatientMessageReport";
 
 import { IPatient } from "@/types/Patient";
 import { IMessageReportEntry } from "@/types/Message";
+import dbConnect from "@/lib/dbConnect";
+import Patient from "@/models/Patient";
 
 interface QParams extends ParsedUrlQuery {
   uuid?: string;
@@ -39,19 +41,35 @@ export default function PatientInfo({
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  await dbConnect();
   const { uuid } = ctx.params as QParams;
-  // const profile = await getProfileData(username);
-  // if (!profile) {
-  //   return { notFound: true };
-  // }
+  const patientInfo = await Patient.findOne(
+    {
+      uuid,
+    },
+    {
+      uuid: 1,
+      patientId: 1,
+      name: 1,
+      mobileNumbers: 1,
+      notes: 1,
+      messagesEvery: 1,
+      updatedAt: 1,
+    }
+  ).lean();
+
+  if (!patientInfo) {
+    return { notFound: true };
+  }
+
+  patientInfo._id = patientInfo._id.toString();
+  patientInfo.updatedAt = patientInfo.updatedAt.toString();
+  // console.log(patientInfo);
+
   return {
     props: {
       patient: {
-        uuid: "1234",
-        patientId: "1",
-        name: "Hari Lal",
-        mobileNumbers: ["+917890987678"],
-        notes: "Schizophrenia",
+        ...patientInfo,
       },
       messageReport: [
         {
