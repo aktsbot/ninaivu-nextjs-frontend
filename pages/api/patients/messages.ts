@@ -24,10 +24,8 @@ export default async function handler(
 
   switch (method) {
     case "GET":
-      console.log("getting called");
       try {
         let patientUuid = req.query.patient;
-        console.log(patientUuid);
         if (!patientUuid) {
           return res.status(400).json({ success: false });
         }

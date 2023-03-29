@@ -11,6 +11,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Badge from "@mui/material/Badge";
 import MessageIcon from "@mui/icons-material/Message";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 import Date from "./Date";
 import { IMessageReportEntry } from "@/types/Message";
@@ -74,6 +76,15 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
     return () => setDoSearch(false);
   }, []);
 
+  const handlePagination = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setAllReports([]);
+    setPagination((prev) => ({ ...prev, page: value }));
+    setDoSearch(true);
+  };
+
   return (
     <>
       <Typography variant="h5" component="h1" mt={2}>
@@ -84,7 +95,23 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
           </Badge>
         </Box>
       </Typography>
-      <Box mt={2} />
+
+      <Box
+        mt={2}
+        mb={2}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack>
+          <Pagination
+            count={pagination.totalPages}
+            page={pagination.page}
+            onChange={handlePagination}
+          />
+        </Stack>
+      </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="sms report">
           <TableHead>
