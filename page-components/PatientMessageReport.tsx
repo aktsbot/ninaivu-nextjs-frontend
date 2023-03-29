@@ -19,7 +19,7 @@ import { IMessageReportEntry } from "@/types/Message";
 import { IPatient } from "@/types/Patient";
 
 export default function PatientCard({ patient }: { patient: IPatient }) {
-  const [allReports, setAllReports] = useState<IMessageReportEntry[]>([]);
+  const [allReceipts, setAllReceipts] = useState<IMessageReportEntry[]>([]);
   const [pagination, setPagination] = useState({
     page: 1,
     totalPages: 1,
@@ -48,7 +48,7 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
           signal: signal,
         }).then((r) => r.json());
 
-        setAllReports((prev) => [...prev, ...res.data.receipts]);
+        setAllReceipts((prev) => [...prev, ...res.data.receipts]);
         setPagination((prev) => ({
           ...prev,
           totalPages: res.data.totalPages,
@@ -80,7 +80,7 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
     _event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    setAllReports([]);
+    setAllReceipts([]);
     setPagination((prev) => ({ ...prev, page: value }));
     setDoSearch(true);
   };
@@ -122,7 +122,7 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allReports.map((row) => (
+            {allReceipts.map((row) => (
               <TableRow
                 key={row.uuid}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
