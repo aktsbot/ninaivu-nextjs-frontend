@@ -34,7 +34,7 @@ export default function PatientInfo({
       <PatientCard patient={patient} skipActions />
 
       <Box mt={2} />
-      <PatientMessageReport messageReport={messageReport} />
+      <PatientMessageReport patient={patient} />
       <Box mb={4} />
     </Layout>
   );
