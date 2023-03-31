@@ -19,7 +19,6 @@ interface QParams extends ParsedUrlQuery {
 
 export default function PatientInfo({
   patient,
-  messageReport,
 }: {
   patient: IPatient;
   messageReport: IMessageReportEntry[];
@@ -71,33 +70,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       patient: {
         ...patientInfo,
       },
-      messageReport: [
-        {
-          uuid: "abc",
-          message: {
-            uuid: "def",
-            content: "This is a test sms",
-            createdAt: "2023-03-10T19:23:31.961Z",
-            updatedAt: "2023-03-10T19:23:31.961Z",
-          },
-          status: "sent", // pending, sent, failed
-          createdAt: "2023-03-10T19:23:31.961Z",
-          updatedAt: "2023-03-10T19:23:31.961Z",
-        },
-        {
-          uuid: "def",
-          message: {
-            uuid: "ghi",
-            content:
-              "மார்கழி பூவே மார்கழி பூவே உன் மடி மேலே ஓர் இடம் வேண்டும் மெத்தை மேல் கண்கள் மூடவும் இல்லை உன்மடி சேர்ந்தால் கனவுகள் கொள்ளை",
-            createdAt: "2023-03-09T19:23:31.961Z",
-            updatedAt: "2023-03-09T19:23:31.961Z",
-          },
-          status: "failed", // pending, sent, failed
-          createdAt: "2023-03-09T19:23:31.961Z",
-          updatedAt: "2023-03-09T19:23:31.961Z",
-        },
-      ],
     },
   };
 };

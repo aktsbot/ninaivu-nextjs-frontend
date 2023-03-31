@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth/next";
 
 import dbConnect from "@/lib/dbConnect";
 import Patient from "@/models/Patient";
-import Message from "@/models/Message";
 import MessageReceipt from "@/models/MessageReceipt";
 
 export default async function handler(

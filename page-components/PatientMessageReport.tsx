@@ -36,7 +36,7 @@ export default function PatientCard({ patient }: { patient: IPatient }) {
     async function getMessageReceipts() {
       const query = new URLSearchParams({
         page: pagination.page.toString(),
-        patient: patient.uuid,
+        patient: patient.uuid!,
       });
       try {
         const res = await fetch("/api/patients/messages?" + query, {
