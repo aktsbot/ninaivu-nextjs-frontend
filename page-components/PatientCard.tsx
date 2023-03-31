@@ -38,6 +38,16 @@ export default function PatientCard({
         <Typography variant="body2" mt={1} color="text.secondary">
           {patient.notes}
         </Typography>
+
+        <Box mt={2}>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => router.push(`/patients/${patient.uuid}/edit`)}
+          >
+            Edit
+          </Button>
+        </Box>
       </CardContent>
       {!skipActions && (
         <CardActions>
