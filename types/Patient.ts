@@ -1,5 +1,5 @@
 export interface IPatient {
-  uuid: string;
+  uuid?: string;
   patientId: string;
   name: string;
   mobileNumbers: string[];
