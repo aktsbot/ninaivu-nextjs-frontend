@@ -86,13 +86,25 @@ export default function PatientForm({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     console.log(patient);
-    postData();
+    sendData();
   }
 
-  const postData = async () => {
+  const sendData = async () => {
+    let successMessage = "Patient has been added";
+    let errorMessage = "Failed to add patient";
+
     try {
-      const res = await fetch("/api/patients", {
-        method: "POST",
+      let url = "/api/patients";
+      let method = "POST";
+      if (patientUuid) {
+        url = `/api/patients/${patientUuid}`;
+        method = "PUT";
+        successMessage = "Patient has been updated";
+        errorMessage = "Failed to update patient";
+      }
+
+      const res = await fetch(url, {
+        method,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -106,13 +118,13 @@ export default function PatientForm({
       }
 
       addAlert({
-        message: "Patient has been added",
+        message: successMessage,
         type: "success",
       });
       router.push("/patients");
     } catch (error) {
       addAlert({
-        message: "Failed to add patient",
+        message: errorMessage,
         type: "error",
       });
     }

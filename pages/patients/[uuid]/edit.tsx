@@ -36,7 +36,7 @@ export default function PatientEdit() {
   };
 
   return (
-    <Layout title={`Edit ${patient.name}`}>
+    <Layout title={`Editing ${patient.name}`}>
       <Typography variant="h4" component="h1" mt={2}>
         Editing {patient.name}
       </Typography>
