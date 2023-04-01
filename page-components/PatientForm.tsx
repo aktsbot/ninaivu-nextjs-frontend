@@ -1,5 +1,6 @@
 import { useState, useMemo, useContext } from "react";
 import { useRouter } from "next/router";
+import { mutate } from "swr";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -121,6 +122,12 @@ export default function PatientForm({
         message: successMessage,
         type: "success",
       });
+
+      if (patientUuid) {
+        const { data } = await res.json();
+        mutate(`/api/patients/${patientUuid}`, data, false); // Update the local data without a revalidation
+      }
+
       router.push("/patients");
     } catch (error) {
       addAlert({

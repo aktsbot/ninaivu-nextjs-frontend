@@ -18,13 +18,12 @@ export default async function handler(
 
   const { method } = req;
 
+  const { uuid } = req.query;
   await dbConnect();
 
   switch (method) {
     case "GET":
       try {
-        const { uuid } = req.query;
-
         const patientInfo = await Patient.findOne({
           uuid,
         });
@@ -38,6 +37,34 @@ export default async function handler(
         res.status(200).json({
           success: true,
           data: patientInfo,
+        });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
+    case "PUT":
+      try {
+        const updateStatus = await Patient.findOneAndUpdate(
+          {
+            uuid,
+          },
+          {
+            $set: {
+              patientId: req.body.patientId,
+              name: req.body.name,
+              mobileNumbers: req.body.mobileNumbers,
+              notes: req.body.notes,
+              messagesEvery: req.body.messagesEvery,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+
+        res.status(200).json({
+          success: true,
+          data: updateStatus,
         });
       } catch (error) {
         res.status(400).json({ success: false });
