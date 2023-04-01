@@ -44,6 +44,9 @@ export default function PatientForm({
     messagesEvery: patientInfo.messagesEvery,
   });
 
+  // form in edit page?
+  const patientUuid = patientInfo.uuid || null;
+
   const isFormGood = useMemo(() => {
     if (
       patient.patientId &&
@@ -252,12 +255,13 @@ export default function PatientForm({
         multiline
         rows={4}
         fullWidth
+        value={patient.notes}
         onChange={handleChange}
       />
 
       <Box mt={2}>
         <Button variant="contained" type="submit" disabled={!isFormGood}>
-          Create patient
+          {patientUuid ? "Update" : "Create"} patient
         </Button>
       </Box>
     </Box>
