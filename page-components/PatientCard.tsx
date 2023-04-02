@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Card from "@mui/material/Card";
@@ -39,7 +40,7 @@ export default function PatientCard({
           {patient.notes}
         </Typography>
 
-        <Box mt={2}>
+        <Stack direction="row" spacing={2} mt={2}>
           <Button
             variant="outlined"
             size="small"
@@ -47,7 +48,15 @@ export default function PatientCard({
           >
             Edit
           </Button>
-        </Box>
+
+          <Button color="error" size="small">
+            Deactivate
+          </Button>
+
+          <Button color="success" size="small">
+            Activate
+          </Button>
+        </Stack>
       </CardContent>
       {!skipActions && (
         <CardActions>
