@@ -54,6 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       notes: 1,
       messagesEvery: 1,
       updatedAt: 1,
+      status: 1,
     }
   ).lean();
 

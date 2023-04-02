@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useRouter } from "next/router";
 
 import Stack from "@mui/material/Stack";
@@ -11,6 +12,7 @@ import Typography from "@mui/material/Typography";
 
 import { IPatient } from "@/types/Patient";
 import { capitalize } from "@mui/material";
+import { AppContext } from "@/contexts/AppContext";
 
 export default function PatientCard({
   patient,
@@ -20,6 +22,36 @@ export default function PatientCard({
   skipActions?: boolean;
 }) {
   const router = useRouter();
+  const { addAlert } = useContext(AppContext);
+
+  async function updatePatient({ status }: { status: "active" | "inactive" }) {
+    try {
+      const res = await fetch(`/api/patients/${patient.uuid}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      // Throw error with status code in case Fetch API req failed
+      if (!res.ok) {
+        throw new Error(res.status.toString());
+      }
+
+      addAlert({
+        message: "Patient has been updated",
+        type: "success",
+      });
+      router.push("/patients");
+    } catch (error) {
+      addAlert({
+        message: "Failed to update patient",
+        type: "error",
+      });
+    }
+  }
 
   return (
     <Card sx={{ minWidth: 275 }}>
@@ -49,13 +81,23 @@ export default function PatientCard({
             Edit
           </Button>
 
-          <Button color="error" size="small">
-            Deactivate
-          </Button>
-
-          <Button color="success" size="small">
-            Activate
-          </Button>
+          {patient.status && patient.status === "active" ? (
+            <Button
+              color="error"
+              size="small"
+              onClick={() => updatePatient({ status: "inactive" })}
+            >
+              Deactivate
+            </Button>
+          ) : (
+            <Button
+              color="success"
+              size="small"
+              onClick={() => updatePatient({ status: "active" })}
+            >
+              Activate
+            </Button>
+          )}
         </Stack>
       </CardContent>
       {!skipActions && (

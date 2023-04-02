@@ -5,4 +5,5 @@ export interface IPatient {
   mobileNumbers: string[];
   notes: string;
   messagesEvery: string[];
+  status?: "active" | "inactive";
 }

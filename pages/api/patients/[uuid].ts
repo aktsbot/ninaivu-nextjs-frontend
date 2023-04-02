@@ -44,17 +44,39 @@ export default async function handler(
       break;
     case "PUT":
       try {
+        let updatePayload = {};
+        if (req.body.patientId) {
+          updatePayload = { ...updatePayload, patientId: req.body.patientId };
+        }
+        if (req.body.name) {
+          updatePayload = { ...updatePayload, name: req.body.name };
+        }
+        if (req.body.mobileNumbers) {
+          updatePayload = {
+            ...updatePayload,
+            mobileNumbers: req.body.mobileNumbers,
+          };
+        }
+        if (req.body.notes) {
+          updatePayload = { ...updatePayload, notes: req.body.notes };
+        }
+        if (req.body.messagesEvery) {
+          updatePayload = {
+            ...updatePayload,
+            messagesEvery: req.body.messagesEvery,
+          };
+        }
+        if (req.body.status) {
+          updatePayload = { ...updatePayload, status: req.body.status };
+        }
+
         const updateStatus = await Patient.findOneAndUpdate(
           {
             uuid,
           },
           {
             $set: {
-              patientId: req.body.patientId,
-              name: req.body.name,
-              mobileNumbers: req.body.mobileNumbers,
-              notes: req.body.notes,
-              messagesEvery: req.body.messagesEvery,
+              ...updatePayload,
             },
           },
           {
