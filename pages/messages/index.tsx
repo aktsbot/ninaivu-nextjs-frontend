@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
@@ -91,17 +93,36 @@ export default function Messages() {
       </Typography>
 
       <Box mt={2}>
-        <Box mb={2} display="flex" justifyContent="center" alignItems="center">
+        {pagination.allCount === 0 && !doSearch ? (
           <Stack>
-            <Pagination
-              count={pagination.totalPages}
-              page={pagination.page}
-              onChange={handlePagination}
-            />
+            <Typography component="p" mb={2}>
+              No messages found.
+            </Typography>
+            <Link href="/messages/new" passHref>
+              <Button size="small" variant="outlined">
+                Create a message
+              </Button>
+            </Link>
           </Stack>
-        </Box>
-
-        <MessageListTable messages={allMessages} />
+        ) : (
+          <>
+            <Box
+              mb={2}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Stack>
+                <Pagination
+                  count={pagination.totalPages}
+                  page={pagination.page}
+                  onChange={handlePagination}
+                />
+              </Stack>
+            </Box>
+            <MessageListTable messages={allMessages} />
+          </>
+        )}
       </Box>
 
       <Box mb={4} />
