@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Badge from "@mui/material/Badge";
@@ -119,42 +120,55 @@ export default function Patients() {
       </Typography>
 
       <Box component="form" noValidate autoComplete="off">
-        <Stack direction="row" alignItems="center" gap={4}>
-          <TextField
-            id="search-patient-name"
-            label="Patient name"
-            variant="standard"
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, name: e.target.value }))
-            }
-            value={filters.name}
-          />
-          <TextField
-            id="search-patient-mobile"
-            label="Patient mobile number"
-            variant="standard"
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, mobileNumber: e.target.value }))
-            }
-            value={filters.mobileNumber}
-          />
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={["active", "inactive"]}
-            sx={{ width: 300 }}
-            onChange={(_e, value) =>
-              setFilters((prev) => ({ ...prev, status: value! }))
-            }
-            value={filters.status}
-            renderInput={(params) => (
-              <TextField {...params} label="Status" variant="standard" />
-            )}
-          />
-          <Button variant="contained" onClick={handleFilter}>
-            Filter
-          </Button>
-        </Stack>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={3}>
+            <TextField
+              id="search-patient-name"
+              label="Patient name"
+              variant="standard"
+              fullWidth
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, name: e.target.value }))
+              }
+              value={filters.name}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextField
+              id="search-patient-mobile"
+              label="Patient mobile number"
+              variant="standard"
+              fullWidth
+              onChange={(e) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  mobileNumber: e.target.value,
+                }))
+              }
+              value={filters.mobileNumber}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={["active", "inactive"]}
+              // sx={{ width: 300 }}
+              onChange={(_e, value) =>
+                setFilters((prev) => ({ ...prev, status: value! }))
+              }
+              value={filters.status}
+              renderInput={(params) => (
+                <TextField {...params} label="Status" variant="standard" />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Button variant="contained" onClick={handleFilter}>
+              Filter
+            </Button>
+          </Grid>
+        </Grid>
       </Box>
 
       <Box mt={4}>
