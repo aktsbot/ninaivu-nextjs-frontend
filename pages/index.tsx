@@ -11,7 +11,7 @@ export default function Home() {
         Stats
       </Typography>
 
-      <Grid container spacing={1}>
+      <Grid container spacing={1} mt={2}>
         <Grid item>
           <StatCard />
         </Grid>
