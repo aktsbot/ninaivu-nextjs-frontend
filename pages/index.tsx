@@ -1,12 +1,27 @@
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 
+import StatCard from "@/page-components/StatCard";
 import Layout from "@/page-components/Layout";
 
 export default function Home() {
   return (
     <Layout title="Home">
-      <Typography variant="h3">👈 Check out that nav!</Typography>
+      <Typography variant="h4" component="h1" mt={2}>
+        Stats
+      </Typography>
+
+      <Grid container spacing={1}>
+        <Grid item>
+          <StatCard />
+        </Grid>
+        <Grid item>
+          <StatCard />
+        </Grid>
+        <Grid item>
+          <StatCard />
+        </Grid>
+      </Grid>
     </Layout>
   );
 }
