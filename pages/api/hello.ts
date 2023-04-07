@@ -1,13 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  name: string
-}
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const banner = `
+   __    _  ___   __    _  _______  ___   __   __  __   __
+  |  |  | ||   | |  |  | ||   _   ||   | |  | |  ||  | |  |
+  |   |_| ||   | |   |_| ||  |_|  ||   | |  |_|  ||  | |  |
+  |       ||   | |       ||       ||   | |       ||  |_|  |
+  |  _    ||   | |  _    ||       ||   | |       ||       |
+  | | |   ||   | | | |   ||   _   ||   |  |     | |       |
+  |_|  |__||___| |_|  |__||__| |__||___|   |___|  |_______|
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
+  Source: https://github.com/aktsbot/ninaivu-nextjs-frontend
+  `;
+  res.setHeader("Content-Type", "text/plain");
+  res.status(200).send(banner);
 }
