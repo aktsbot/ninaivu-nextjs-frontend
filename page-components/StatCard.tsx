@@ -3,11 +3,11 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 interface IStat {
-  count: number;
+  itemHead: string;
   itemText: string;
 }
 
-export default function StatCard({ count, itemText }: IStat) {
+export default function StatCard({ itemHead, itemText }: IStat) {
   return (
     <Card sx={{ minWidth: 240 }} variant="outlined">
       <CardContent>
@@ -17,7 +17,7 @@ export default function StatCard({ count, itemText }: IStat) {
           color="text.secondary"
           gutterBottom
         >
-          {count}
+          {itemHead}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {itemText}
