@@ -13,13 +13,13 @@ export default function Home() {
 
       <Grid container spacing={1} mt={2}>
         <Grid item>
-          <StatCard />
+          <StatCard count={12} itemText={"patients"} />
         </Grid>
         <Grid item>
-          <StatCard />
+          <StatCard count={9} itemText={"messages"} />
         </Grid>
         <Grid item>
-          <StatCard />
+          <StatCard count={54} itemText={"credits left"} />
         </Grid>
       </Grid>
     </Layout>
