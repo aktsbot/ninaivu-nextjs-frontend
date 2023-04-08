@@ -3,7 +3,9 @@
 ```
 $ nvm use
 $ npm i
-$ EMAIL="valiemail@gmail.com" npm run dev:insert-user 
+$ cp .env.local.example .env.local
+$ # fix values in env
+$ EMAIL="valiemail@gmail.com" npm run dev:insert-user
 ```
 
 
