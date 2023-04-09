@@ -1,3 +1,5 @@
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -31,6 +33,16 @@ export default function ReportTable() {
       <Typography variant="h4" component="h2" my={2}>
         Report
       </Typography>
+
+      <Box>
+        <label htmlFor="fromDate">From</label>
+        <input type="date" id="fromDate" />
+
+        <label htmlFor="toDate">To</label>
+        <input type="date" id="toDate" />
+
+        <Button>Filter</Button>
+      </Box>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="report list">
