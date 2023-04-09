@@ -1,8 +1,10 @@
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
+import ReportTable from "@/page-components/ReportTable";
 import StatCard from "@/page-components/StatCard";
 import Layout from "@/page-components/Layout";
+import { Box } from "@mui/material";
 
 export default function Home() {
   return (
@@ -25,6 +27,9 @@ export default function Home() {
           <StatCard itemHead={"54"} itemText={"credits left"} />
         </Grid>
       </Grid>
+
+      <Box mt={4} />
+      <ReportTable />
     </Layout>
   );
 }
