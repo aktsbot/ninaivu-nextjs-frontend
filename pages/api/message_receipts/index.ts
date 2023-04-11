@@ -3,6 +3,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 
 import dbConnect from "@/lib/dbConnect";
+import MessageReceipt from "@/models/MessageReceipt";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,7 +29,17 @@ export default async function handler(
       fromDate.setDate(fromDate.getDate() - 7);
       let toDate = new Date();
       try {
-        res.status(200).json({});
+        const records = await MessageReceipt.find({
+          date: {
+            $gt: fromDate,
+            $lte: toDate,
+          },
+        });
+        res.status(200).json({
+          data: {
+            records,
+          },
+        });
       } catch (error) {
         res.status(400).json({ success: false });
       }
