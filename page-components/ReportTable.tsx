@@ -12,6 +12,8 @@ import TableRow from "@mui/material/TableRow";
 
 import Paper from "@mui/material/Paper";
 
+import { getFormattedDate } from "@/lib/pageUtils";
+
 export default function ReportTable() {
   const data = [
     {
@@ -32,6 +34,13 @@ export default function ReportTable() {
 
   const [doSearch, setDoSearch] = useState(false);
 
+  const now = new Date();
+  const [filters, setFilters] = useState({
+    fromDate: getFormattedDate({ date: new Date() }),
+    toDate: getFormattedDate({
+      date: new Date(now.setDate(now.getDate() - 7)),
+    }),
+  });
   const [reportItems, setReportItems] = useState([]);
 
   useEffect(() => {
@@ -39,8 +48,13 @@ export default function ReportTable() {
     const signal = controller.signal;
 
     async function getReports() {
+      const query = new URLSearchParams({
+        fromDate: filters.fromDate.toString(),
+        toDate: filters.toDate.toString(),
+      });
+
       try {
-        const res = await fetch("/api/message_receipts", {
+        const res = await fetch("/api/message_receipts?" + query, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -62,7 +76,7 @@ export default function ReportTable() {
         controller.abort();
       };
     }
-  }, [doSearch]);
+  }, [doSearch, filters.fromDate, filters.toDate]);
 
   useEffect(() => {
     setDoSearch(true);

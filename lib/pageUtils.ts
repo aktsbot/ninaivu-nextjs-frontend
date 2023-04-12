@@ -14,3 +14,11 @@ export const makeAlertObj = ({
     message,
   };
 };
+
+export const getFormattedDate = ({ date }: { date: Date }) => {
+  let objectDate = new Date(date);
+  let day = objectDate.getDate();
+  let month = objectDate.getMonth();
+  let year = objectDate.getFullYear();
+  return `${year}-${month}-${day}`;
+};
