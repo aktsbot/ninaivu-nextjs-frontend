@@ -17,7 +17,7 @@ export default async function handler(
   }
 
   // console.log("session in handler ", session);
-  const loggedInUser = session.user;
+  // const loggedInUser = session.user;
 
   const { method } = req;
 
@@ -43,6 +43,7 @@ export default async function handler(
       } catch (error) {
         res.status(400).json({ success: false });
       }
+      break;
     default:
       res.status(400).json({ success: false });
       break;

@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -27,6 +29,46 @@ export default function ReportTable() {
       date: "2021-09-07",
     },
   ];
+
+  const [doSearch, setDoSearch] = useState(false);
+
+  const [reportItems, setReportItems] = useState([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    async function getReports() {
+      try {
+        const res = await fetch("/api/message_receipts", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          signal: signal,
+        }).then((r) => r.json());
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setDoSearch(false);
+      }
+    }
+
+    if (doSearch) {
+      getReports();
+
+      return () => {
+        controller.abort();
+      };
+    }
+  }, [doSearch]);
+
+  useEffect(() => {
+    setDoSearch(true);
+
+    return () => setDoSearch(false);
+  }, []);
 
   return (
     <>
