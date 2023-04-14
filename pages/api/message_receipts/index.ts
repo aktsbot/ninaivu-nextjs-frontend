@@ -28,6 +28,12 @@ export default async function handler(
       let fromDate = new Date();
       fromDate.setDate(fromDate.getDate() - 7);
       let toDate = new Date();
+      if (req.query.fromDate) {
+        fromDate = new Date(req.query.fromDate as string);
+      }
+      if (req.query.toDate) {
+        toDate = new Date(req.query.toDate as string);
+      }
       try {
         const records = await MessageReceipt.find({
           date: {
