@@ -18,7 +18,7 @@ export const makeAlertObj = ({
 export const getFormattedDate = ({ date }: { date: Date }) => {
   let objectDate = new Date(date);
   let day = objectDate.getDate();
-  let month = objectDate.getMonth();
+  let month = objectDate.getMonth() + 1;
   let year = objectDate.getFullYear();
 
   let strMonth = month.toString();

@@ -13,6 +13,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import { getFormattedDate } from "@/lib/pageUtils";
+import { IMessageReportEntry } from "@/types/Message";
 
 export default function ReportTable() {
   const data = [
@@ -36,12 +37,12 @@ export default function ReportTable() {
 
   const now = new Date();
   const [filters, setFilters] = useState({
-    fromDate: getFormattedDate({ date: new Date() }),
-    toDate: getFormattedDate({
+    fromDate: getFormattedDate({
       date: new Date(now.setDate(now.getDate() - 7)),
     }),
+    toDate: getFormattedDate({ date: new Date() }),
   });
-  const [reportItems, setReportItems] = useState([]);
+  const [reportItems, setReportItems] = useState<IMessageReportEntry[]>([]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -62,6 +63,8 @@ export default function ReportTable() {
           },
           signal: signal,
         }).then((r) => r.json());
+
+        setReportItems(res.data.records);
       } catch (error) {
         console.log(error);
       } finally {
@@ -92,12 +95,26 @@ export default function ReportTable() {
 
       <Box>
         <label htmlFor="fromDate">From</label>
-        <input type="date" id="fromDate" />
+        <input
+          type="date"
+          id="fromDate"
+          value={filters.fromDate}
+          onChange={(e) =>
+            setFilters((prev) => ({ ...prev, fromDate: e.target.value }))
+          }
+        />
 
         <label htmlFor="toDate">To</label>
-        <input type="date" id="toDate" />
+        <input
+          type="date"
+          id="toDate"
+          value={filters.toDate}
+          onChange={(e) =>
+            setFilters((prev) => ({ ...prev, toDate: e.target.value }))
+          }
+        />
 
-        <Button>Filter</Button>
+        <Button onClick={() => setDoSearch(true)}>Filter</Button>
       </Box>
 
       <TableContainer component={Paper}>
@@ -111,17 +128,17 @@ export default function ReportTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((d) => (
+            {reportItems.map((ri) => (
               <TableRow
-                key={d.id}
+                key={ri.uuid}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {d.date}
+                  {ri.date}
                 </TableCell>
-                <TableCell>{d.patient}</TableCell>
-                <TableCell>{d.message}</TableCell>
-                <TableCell>{d.status}</TableCell>
+                <TableCell>{ri.patient?.name}</TableCell>
+                <TableCell>{ri.message?.content}</TableCell>
+                <TableCell>{ri.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

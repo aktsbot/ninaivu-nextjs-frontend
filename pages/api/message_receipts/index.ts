@@ -40,13 +40,16 @@ export default async function handler(
             $gt: fromDate,
             $lte: toDate,
           },
-        });
+        })
+          .populate("message", "uuid content")
+          .populate("patient", "uuid name");
         res.status(200).json({
           data: {
             records,
           },
         });
       } catch (error) {
+        console.error(error);
         res.status(400).json({ success: false });
       }
       break;
