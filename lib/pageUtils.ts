@@ -20,5 +20,15 @@ export const getFormattedDate = ({ date }: { date: Date }) => {
   let day = objectDate.getDate();
   let month = objectDate.getMonth();
   let year = objectDate.getFullYear();
-  return `${year}-${month}-${day}`;
+
+  let strMonth = month.toString();
+  if (month < 10) {
+    strMonth = `0${month}`;
+  }
+
+  let strDay = day.toString();
+  if (day < 10) {
+    strDay = `0${day}`;
+  }
+  return `${year}-${strMonth}-${strDay}`;
 };
