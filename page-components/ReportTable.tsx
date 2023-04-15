@@ -16,23 +16,6 @@ import { getFormattedDate } from "@/lib/pageUtils";
 import { IMessageReportEntry } from "@/types/Message";
 
 export default function ReportTable() {
-  const data = [
-    {
-      id: 1,
-      patient: "Rami Malek",
-      message: "Foobar is gold",
-      status: "sent",
-      date: "2021-09-08",
-    },
-    {
-      id: 2,
-      patient: "James Malek",
-      message: "No, foobar is not gold",
-      status: "failed",
-      date: "2021-09-07",
-    },
-  ];
-
   const [doSearch, setDoSearch] = useState(false);
 
   const now = new Date();
@@ -141,6 +124,12 @@ export default function ReportTable() {
                 <TableCell>{ri.status}</TableCell>
               </TableRow>
             ))}
+
+            {!doSearch && reportItems.length === 0 && (
+              <Typography component="p" p={2}>
+                No records found for this filter
+              </Typography>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
