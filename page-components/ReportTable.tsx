@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import Link from "next/link";
+
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,9 +11,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-
 import Paper from "@mui/material/Paper";
-
+import { DateTime } from "./Date";
 import { getFormattedDate } from "@/lib/pageUtils";
 import { IMessageReportEntry } from "@/types/Message";
 
@@ -76,7 +77,7 @@ export default function ReportTable() {
         Report
       </Typography>
 
-      <Box>
+      <Box mb={2}>
         <label htmlFor="fromDate">From</label>
         <input
           type="date"
@@ -98,6 +99,12 @@ export default function ReportTable() {
         />
 
         <Button onClick={() => setDoSearch(true)}>Filter</Button>
+
+        {!doSearch && reportItems.length !== 0 && (
+          <Typography component="span" pl={2}>
+            <small>{reportItems.length} records found</small>
+          </Typography>
+        )}
       </Box>
 
       <TableContainer component={Paper}>
@@ -117,9 +124,13 @@ export default function ReportTable() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {ri.date}
+                  <DateTime dateString={ri.date as unknown as string} />
                 </TableCell>
-                <TableCell>{ri.patient?.name}</TableCell>
+                <TableCell>
+                  <Link href={`/patients/${ri.patient?.uuid}`}>
+                    {ri.patient?.name}
+                  </Link>
+                </TableCell>
                 <TableCell>{ri.message?.content}</TableCell>
                 <TableCell>{ri.status}</TableCell>
               </TableRow>
