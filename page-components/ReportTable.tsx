@@ -107,6 +107,12 @@ export default function ReportTable() {
         )}
       </Box>
 
+      {!doSearch && reportItems.length === 0 ? (
+        <Typography component="span">
+          No records found for this filter{" "}
+        </Typography>
+      ) : null}
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="report list">
           <TableHead>
@@ -135,12 +141,6 @@ export default function ReportTable() {
                 <TableCell>{ri.status}</TableCell>
               </TableRow>
             ))}
-
-            {!doSearch && reportItems.length === 0 && (
-              <Typography component="p" p={2}>
-                No records found for this filter
-              </Typography>
-            )}
           </TableBody>
         </Table>
       </TableContainer>
