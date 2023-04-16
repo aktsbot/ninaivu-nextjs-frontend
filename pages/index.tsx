@@ -10,6 +10,7 @@ import { Box } from "@mui/material";
 import { getFormattedDateTime } from "@/lib/pageUtils";
 
 export default function Home() {
+  const [doSearch, setDoSearch] = useState(false);
   const [stats, setStats] = useState({
     patients: 0,
     messages: 0,
@@ -37,11 +38,19 @@ export default function Home() {
       }
     }
 
-    getStats();
+    if (doSearch) {
+      getStats();
 
-    return () => {
-      controller.abort();
-    };
+      return () => {
+        controller.abort();
+      };
+    }
+  }, [doSearch]);
+
+  useEffect(() => {
+    setDoSearch(true);
+
+    return () => setDoSearch(false);
   }, []);
 
   return (

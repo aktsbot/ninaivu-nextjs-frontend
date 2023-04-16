@@ -35,12 +35,20 @@ export default async function handler(
         const promises = [
           Message.countDocuments({}),
           Patient.countDocuments({}),
-          Scheduler.findOne({}, null, { sort: { _id: -1 } }),
+          Scheduler.findOne({}, null, { sort: { _id: -1 }, limit: 1 }),
         ];
 
         const [messages, patients, scheduler] = await Promise.all(promises);
         stats.messages = messages;
         stats.patients = patients;
+
+        if (scheduler.ranOn) {
+          stats.ranOn = scheduler.ranOn;
+        }
+
+        if (scheduler.credits) {
+          stats.credits = scheduler.credits;
+        }
 
         res.status(200).json({
           success: true,
