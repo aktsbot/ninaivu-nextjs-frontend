@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import Link from "next/link";
 
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -21,10 +22,12 @@ export default function ReportTable() {
 
   const now = new Date();
   const [filters, setFilters] = useState({
-    fromDate: getFormattedDate({
-      date: new Date(now.setDate(now.getDate() - 7)),
-    }),
-    toDate: getFormattedDate({ date: new Date() }),
+    fromDate: new Date(
+      getFormattedDate({
+        date: new Date(now.setDate(now.getDate() - 7)),
+      })
+    ),
+    toDate: new Date(getFormattedDate({ date: new Date() })),
   });
   const [reportItems, setReportItems] = useState<IMessageReportEntry[]>([]);
 
@@ -79,6 +82,14 @@ export default function ReportTable() {
 
       <Box mb={2}>
         <label htmlFor="fromDate">From</label>
+
+        <DatePicker
+          value={filters.fromDate}
+          onChange={(newValue) => {
+            setFilters((prev) => ({ ...prev, fromDate: newValue }));
+          }}
+        />
+
         <input
           type="date"
           id="fromDate"
