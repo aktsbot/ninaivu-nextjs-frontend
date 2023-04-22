@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Link as MUILink } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -81,32 +82,22 @@ export default function ReportTable() {
       </Typography>
 
       <Box mb={2}>
-        <label htmlFor="fromDate">From</label>
-
         <DatePicker
+          label="From"
+          format="dd/MM/yyyy"
           value={filters.fromDate}
           onChange={(newValue) => {
-            setFilters((prev) => ({ ...prev, fromDate: newValue }));
+            setFilters((prev) => ({ ...prev, fromDate: newValue! }));
           }}
         />
 
-        <input
-          type="date"
-          id="fromDate"
-          value={filters.fromDate}
-          onChange={(e) =>
-            setFilters((prev) => ({ ...prev, fromDate: e.target.value }))
-          }
-        />
-
-        <label htmlFor="toDate">To</label>
-        <input
-          type="date"
-          id="toDate"
+        <DatePicker
+          label="To"
           value={filters.toDate}
-          onChange={(e) =>
-            setFilters((prev) => ({ ...prev, toDate: e.target.value }))
-          }
+          format="dd/MM/yyyy"
+          onChange={(newValue) => {
+            setFilters((prev) => ({ ...prev, toDate: newValue! }));
+          }}
         />
 
         <Button onClick={() => setDoSearch(true)}>Filter</Button>
@@ -144,8 +135,8 @@ export default function ReportTable() {
                   <DateTime dateString={ri.date as unknown as string} />
                 </TableCell>
                 <TableCell>
-                  <Link href={`/patients/${ri.patient?.uuid}`}>
-                    {ri.patient?.name}
+                  <Link href={`/patients/${ri.patient?.uuid}`} passHref>
+                    <MUILink>{ri.patient?.name}</MUILink>
                   </Link>
                 </TableCell>
                 <TableCell>{ri.message?.content}</TableCell>
