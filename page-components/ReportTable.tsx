@@ -14,6 +14,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+
 import { DateTime } from "./Date";
 import { getFormattedDate } from "@/lib/pageUtils";
 import { IMessageReportEntry } from "@/types/Message";
@@ -82,31 +84,40 @@ export default function ReportTable() {
       </Typography>
 
       <Box mb={2}>
-        <DatePicker
-          label="From"
-          format="dd/MM/yyyy"
-          value={filters.fromDate}
-          onChange={(newValue) => {
-            setFilters((prev) => ({ ...prev, fromDate: newValue! }));
-          }}
-        />
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={3}>
+            <DatePicker
+              label="From"
+              format="dd/MM/yyyy"
+              value={filters.fromDate}
+              onChange={(newValue) => {
+                setFilters((prev) => ({ ...prev, fromDate: newValue! }));
+              }}
+            />
+          </Grid>
 
-        <DatePicker
-          label="To"
-          value={filters.toDate}
-          format="dd/MM/yyyy"
-          onChange={(newValue) => {
-            setFilters((prev) => ({ ...prev, toDate: newValue! }));
-          }}
-        />
+          <Grid item xs={12} md={3}>
+            <DatePicker
+              label="To"
+              value={filters.toDate}
+              format="dd/MM/yyyy"
+              onChange={(newValue) => {
+                setFilters((prev) => ({ ...prev, toDate: newValue! }));
+              }}
+            />
+          </Grid>
 
-        <Button onClick={() => setDoSearch(true)}>Filter</Button>
-
-        {!doSearch && reportItems.length !== 0 && (
-          <Typography component="span" pl={2}>
-            <small>{reportItems.length} records found</small>
-          </Typography>
-        )}
+          <Grid item xs={12} md={3}>
+            <Button onClick={() => setDoSearch(true)} variant="outlined">
+              Filter
+            </Button>
+            {!doSearch && reportItems.length !== 0 && (
+              <Typography component="span" pl={2}>
+                <small>{reportItems.length} records found</small>
+              </Typography>
+            )}
+          </Grid>
+        </Grid>
       </Box>
 
       {!doSearch && reportItems.length === 0 ? (
@@ -146,6 +157,8 @@ export default function ReportTable() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Box mb={4} />
     </>
   );
 }
