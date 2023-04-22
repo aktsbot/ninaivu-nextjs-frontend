@@ -1,5 +1,7 @@
 # ninaivu
 
+Frontend for ninaivu in next.js
+
 ```
 $ nvm use
 $ npm i
