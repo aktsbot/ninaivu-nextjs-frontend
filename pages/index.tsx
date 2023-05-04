@@ -83,10 +83,7 @@ export default function Home() {
           />
         </Grid>
         <Grid item xs={6}>
-          <StatCard
-            itemHead={stats.credits.toString()}
-            itemText={"credits left"}
-          />
+          <StatCard itemHead={stats.credits.toString()} itemText={"USD left"} />
         </Grid>
       </Grid>
 
