@@ -10,5 +10,9 @@ $ # fix values in env
 $ EMAIL="valiemail@gmail.com" npm run dev:insert-user
 ```
 
+To insert dummy patients
 
+```
+$ npm run dev:seed-patients
+```
 
