@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -24,11 +24,10 @@ import MessageIcon from "@mui/icons-material/Message";
 
 import Drawer from "@mui/material/Drawer";
 
-import ProfileMenu from './ProfileMenu'
+import ProfileMenu from "./ProfileMenu";
 
 export default function Nav() {
-
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +67,7 @@ export default function Nav() {
       text: "Messages",
       icon: <MessageIcon />,
       link: "/messages",
-      auth: true
+      auth: true,
     },
     {
       text: "Add message",
@@ -78,13 +77,13 @@ export default function Nav() {
     },
   ];
 
-  const menuItemsToShow = menuItems.filter(mi => {
+  const menuItemsToShow = menuItems.filter((mi) => {
     if (session) {
-      return mi
+      return mi;
     } else {
-      return !mi.auth
+      return !mi.auth;
     }
-  })
+  });
 
   return (
     <>
@@ -100,12 +99,21 @@ export default function Nav() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            onClick={() => router.push("/")}
+          >
             Ninaivu
           </Typography>
-          {
-            session ? <ProfileMenu session={session} onLogout={() => signOut()} /> : <Button color="inherit" onClick={() => signIn()}>Login</Button>
-          }
+          {session ? (
+            <ProfileMenu session={session} onLogout={() => signOut()} />
+          ) : (
+            <Button color="inherit" onClick={() => signIn()}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
 
