@@ -29,8 +29,17 @@ npm script inserts a user into the `users` collection.
 - Create an account and then create a project.
 - Look for "API & Services" and add a new entry in "OAuth 2.0 Client IDs".
 - Setup "Authorized JavaScript origin"
+  - Add `http://localhost:3000` for your dev environment
+  - Add `https://yourdomain.com` for production
 - Setup "Authorized redirect URIs"
+  - Add `http://localhost:3000/api/auth/callback/google` for your dev environment
+  - Add `https://yourdomain.com/api/auth/callback/google` for production.
 - Copy over the ClientID and ClientSecret to the `.env.local` file.
+- To generate a value for `NEXTAUTH_SECRET`, run
+
+```
+$ openssl rand -hex 32
+```
 
 ## Seeding
 
